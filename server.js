@@ -1,39 +1,39 @@
 'use strict';
 
-const langServer = require('vscode-languageserver');
+const {createConnection, TextDocuments} = require('vscode-languageserver');
 const alexVSCode = require('alex-vscode');
 
-const connection = langServer.createConnection(process.stdin, process.stdout);
-const documents = new langServer.TextDocuments();
+const connection = createConnection(process.stdin, process.stdout);
+const documents = new TextDocuments();
 
-function validate(document) {
-  const results = alexVSCode(document);
+function validate(textDocument) {
+	const results = alexVSCode(textDocument);
 
-  if (results.length === 0) {
-    return;
-  }
+	if (results.length === 0) {
+		return;
+	}
 
-  connection.sendDiagnostics({
-    uri: document.uri,
-    diagnostics: results.map(result => {
-      result.message = 'alex: ' + result.message;
-      return result;
-    })
-  });
+	connection.sendDiagnostics({
+		uri: textDocument.uri,
+		diagnostics: results.map(result => {
+			result.message = `alex: ${result.message}`;
+			return result;
+		})
+	});
 }
 
 function validateAll() {
-  return documents.all().map(document => validate(document));
+	return documents.all().map(document => validate(document));
 }
 
 connection.onInitialize(() => {
-  validateAll();
+	validateAll();
 
-  return {
-    capabilities: {
-      textDocumentSync: documents.syncKind
-    }
-  };
+	return {
+		capabilities: {
+			textDocumentSync: documents.syncKind
+		}
+	};
 });
 connection.onDidChangeConfiguration(() => validateAll());
 connection.onDidChangeWatchedFiles(() => validateAll());

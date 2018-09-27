@@ -1,9 +1,6 @@
 # vscode-alex
 
-[![Dependency Status](https://david-dm.org/shinnn/vscode-alex.svg)](https://david-dm.org/shinnn/vscode-alex)
-[![devDependency Status](https://david-dm.org/shinnn/vscode-alex/dev-status.svg)](https://david-dm.org/shinnn/vscode-alex#info=devDependencies)
-
-A [Visual Studio Code](https://code.visualstudio.com/) extension to find unequal phrasing in your text with [alex](http://alexjs.com/):
+A [Visual Studio Code](https://code.visualstudio.com/) extension to find unequal phrasing in your text with [alex](https://alexjs.com):
 
 > Catch insensitive, inconsiderate writing.
 
@@ -30,6 +27,6 @@ Then this extension automatically checks plain text and markdown files.
 
 ## License
 
-Copyright (c) 2015 [Shinnosuke Watanabe](https://github.com/shinnn)
+Copyright (c) 2015 - 2018 [Shinnosuke Watanabe](https://github.com/shinnn)
 
 Licensed under [the MIT License](./LICENSE).
