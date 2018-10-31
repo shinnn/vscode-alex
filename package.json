@@ -1,5 +1,4 @@
 {
-  "license": "MIT",
 	"name": "alex",
 	"version": "0.1.1",
 	"displayName": "alex",
@@ -9,6 +8,7 @@
 	"homepage": "https://github.com/shinnn/vscode-alex#readme",
 	"bugs": "https://github.com/shinnn/vscode-alex/issues",
 	"qna": "https://stackoverflow.com/questions/tagged/vscode+alex",
+	"license": "ISC",
 	"icon": "media/icon.png",
 	"galleryBanner": {
 		"color": "#FAFAFA",

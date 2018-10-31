@@ -1,7 +1,8 @@
-.editorconfig
-.gitignore
-.vscode/**
-*.css
-*.png
-media/*.ai
-test
+**/*
+!index.js
+!media/icon.png
+!node_modules/**/*
+!package.json
+!README.md
+!server.js
+!LICENSE.txt
