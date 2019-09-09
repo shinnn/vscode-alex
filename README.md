@@ -3,7 +3,7 @@
 [![Dependency Status](https://david-dm.org/shinnn/vscode-alex.svg)](https://david-dm.org/shinnn/vscode-alex)
 [![devDependency Status](https://david-dm.org/shinnn/vscode-alex/dev-status.svg)](https://david-dm.org/shinnn/vscode-alex#info=devDependencies)
 
-A [Visual Studio Code](https://code.visualstudio.com/) extension to find unequal phrasing in your text with [alex](http://alexjs.com/):
+A [Visual Studio Code](https://code.visualstudio.com/) extension to find unequal phrasing in your text with [alex](https://alexjs.com/):
 
 > Catch insensitive, inconsiderate writing.
 
