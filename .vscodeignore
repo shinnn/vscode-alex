@@ -1,7 +1,8 @@
-.editorconfig
-.gitignore
 .vscode/**
-*.css
-*.png
-media/*.ai
-test
+.vscode-test/**
+out/test/**
+out/**/*.map
+src/**
+.gitignore
+tsconfig.json
+vsc-extension-quickstart.md
