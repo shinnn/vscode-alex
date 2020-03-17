@@ -50,7 +50,6 @@
         "alex": "^8.1.1",
         "eslint": "^6.8.0",
         "is-md": "^2.0.0",
-        "vfile-messages-to-vscode-diagnostics": "^1.0.0",
         "typescript": "^3.7.0"
     },
     "dependencies": {
