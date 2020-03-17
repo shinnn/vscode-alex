@@ -16,5 +16,9 @@
         "vscode-languageserver": "^6.1.1",
         "vscode-languageserver-textdocument": "^1.0.1"
     },
+    "devDependencies": {
+        "@types/vscode": "^1.40.0",
+        "vscode-test": "^1.3.0"
+    },
     "scripts": {}
 }

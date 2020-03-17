@@ -1,7 +1,7 @@
 {
-    "name": "alex",
-    "version": "0.2.1",
-    "displayName": "alex",
+    "name": "alex-linter",
+    "version": "0.3.0",
+    "displayName": "AlexJS Linter",
     "description": "Find gender favouring, race related, religion inconsiderate or other unequal phrasing",
     "publisher": "shinnn",
     "contributors": [
@@ -26,12 +26,24 @@
     "contributes": {
         "configuration": {
             "type": "object",
-            "title": "alex configuration options",
+            "title": "AlexJS Linter",
             "properties": {
-                "alex.enable": {
+                "alexLinter.check.enabled": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Control whether alex automatically check files or not."
+                    "description": "Control whether AlexJS Linter automatically check files or not."
+                },
+                "alexLinter.check.strategy": {
+                    "type": "string",
+                    "default": "onType",
+                    "enum": [
+                        "onType",
+                        "onSave"
+                    ],
+                    "enumDescriptions": [
+                        "Check the document while typing",
+                        "Check the document when saving"
+                    ]
                 }
             }
         }

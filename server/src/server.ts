@@ -68,13 +68,16 @@ connection.onInitialized(() => {
 
 // The example settings
 interface ExampleSettings {
-    maxNumberOfProblems: number;
+    check: {
+        enabled: boolean;
+        strategy: string;
+    }
 }
 
 // The global settings, used when the `workspace/configuration` request is not supported by the client.
 // Please note that this is not the case when using this server with the client provided in this example
 // but could happen with other clients.
-const defaultSettings: ExampleSettings = { maxNumberOfProblems: 1000 };
+const defaultSettings: ExampleSettings = { check: { enabled: true, strategy: 'onType' } };
 let globalSettings: ExampleSettings = defaultSettings;
 
 // Cache the settings of all open documents
@@ -86,12 +89,12 @@ connection.onDidChangeConfiguration(change => {
         documentSettings.clear();
     } else {
         globalSettings = <ExampleSettings>(
-            (change.settings.languageServerExample || defaultSettings)
+            (change.settings.alexLinter || defaultSettings)
         );
     }
 
     // Revalidate all open text documents
-    documents.all().forEach(validateTextDocument);
+    documents.all().forEach((t: TextDocument) => validateTextDocument(t));
 });
 
 function getDocumentSettings(resource: string): Thenable<ExampleSettings> {
@@ -102,7 +105,7 @@ function getDocumentSettings(resource: string): Thenable<ExampleSettings> {
     if (!result) {
         result = connection.workspace.getConfiguration({
             scopeUri: resource,
-            section: 'languageServerExample'
+            section: 'alexLinter'
         });
         documentSettings.set(resource, result);
     }
@@ -120,7 +123,15 @@ documents.onDidChangeContent(change => {
     validateTextDocument(change.document);
 });
 
-async function validateTextDocument(textDocument: TextDocument): Promise<void> {
+documents.onDidSave(change => {
+    validateTextDocument(change.document, true);
+});
+
+async function validateTextDocument(textDocument: TextDocument, saved = false): Promise<void> {
+    // In this simple example we get the settings for every validate run.
+    let settings = await getDocumentSettings(textDocument.uri);
+    if (!settings.check.enabled || !(settings.check.strategy === 'onSave' && saved)) { return; }
+
     let diagnostics: Diagnostic[] = [];
     const results = alexVSCode(textDocument);
 
