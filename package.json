@@ -22,7 +22,7 @@
     "activationEvents": [
         "onLanguage:plaintext"
     ],
-    "main": "./client/out/extension",
+    "main": "./dist/extension",
     "contributes": {
         "configuration": {
             "type": "object",
@@ -49,10 +49,12 @@
         }
     },
     "scripts": {
-        "compile": "tsc -b",
-        "watch": "tsc -b -w",
+        "vscode:prepublish": "npm run webpack",
+        "webpack": "npm run clean && webpack --mode production --config ./client/webpack.config.js && webpack --mode production --config ./server/webpack.config.js",
+        "webpack:dev": "npm run clean && webpack --mode none --config ./client/webpack.config.js && webpack --mode none --config ./server/webpack.config.js",
         "postinstall": "cd server && npm install && cd ..",
-        "test": "sh ./scripts/e2e.sh"
+        "clean": "rimraf client/out && rimraf server/out",
+        "test-compile": "tsc -p ./"
     },
     "devDependencies": {
         "@types/mocha": "^7.0",
@@ -61,7 +63,12 @@
         "alex": "^8.1.1",
         "eslint": "^6.8.0",
         "is-md": "^2.0.0",
-        "typescript": "^3.7.0"
+        "merge-options": "^2.0.0",
+        "rimraf": "^3.0.2",
+        "ts-loader": "^6.2.1",
+        "typescript": "^3.7.0",
+        "webpack": "^4.42.0",
+        "webpack-cli": "^3.3.11"
     },
     "dependencies": {
         "vscode-languageclient": "^6.1.1"
