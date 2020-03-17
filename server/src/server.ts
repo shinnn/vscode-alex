@@ -126,7 +126,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
     results?.forEach((m: { message: string; range: { start: Position, end: Position } }) => {
         diagnostics.push({
-            severity: DiagnosticSeverity.Hint,
+            severity: DiagnosticSeverity.Warning,
             range: m.range,
             message: m.message,
             source: 'ex'
