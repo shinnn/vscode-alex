@@ -1,0 +1,3 @@
+Example from https://alexjs.com/
+
+The boogeyman wrote all changes to the master server as he was all out of fucks to give. Thus, the slaves were read-only copies of master.
