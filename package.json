@@ -1,63 +1,68 @@
 {
-    "name": "alex",
-    "version": "0.1.1",
-    "displayName": "alex",
-    "description": "Find gender favouring, race related, religion inconsiderate or other unequal phrasing",
-    "publisher": "shinnn",
-    "contributors": [
-        "Tobias Lahmann <tobiaslahmann@gmail.com> (https://github.com/tlahmann/)"
-    ],
-    "repository": "https://github.com/shinnn/vscode-alex",
-    "homepage": "https://github.com/shinnn/vscode-alex#readme",
-    "bugs": "https://github.com/shinnn/vscode-alex/issues",
+    "name": "lsp-sample",
+    "description": "A language server example",
+    "author": "Microsoft Corporation",
     "license": "MIT",
-    "icon": "media/icon.svg",
-    "galleryBanner": {
-        "color": "#FAFAFA",
-        "theme": "light"
+    "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Microsoft/vscode-extension-samples"
     },
+    "publisher": "vscode-samples",
+    "categories": [],
+    "keywords": [
+        "multi-root ready"
+    ],
     "engines": {
         "vscode": "^1.40.0"
     },
-    "categories": [
-        "Linters"
-    ],
     "activationEvents": [
-        "onLanguage:plaintext",
-        "onLanguage:markdown"
+        "onLanguage:plaintext"
     ],
-    "main": "./out/extension",
+    "main": "./client/out/extension",
     "contributes": {
         "configuration": {
             "type": "object",
-            "title": "alex configuration options",
+            "title": "Example configuration",
             "properties": {
-                "alex.enable": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Control whether alex automatically check files or not."
+                "languageServerExample.maxNumberOfProblems": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 100,
+                    "description": "Controls the maximum number of problems produced by the server."
+                },
+                "languageServerExample.trace.server": {
+                    "scope": "window",
+                    "type": "string",
+                    "enum": [
+                        "off",
+                        "messages",
+                        "verbose"
+                    ],
+                    "default": "off",
+                    "description": "Traces the communication between VS Code and the language server."
                 }
             }
         }
     },
     "scripts": {
-        "compile": "tsc -p ./",
-        "pretest": "npm run compile",
-        "test": "node ./out/test/runTest.js"
+        "vscode:prepublish": "cd client && npm run update-vscode && cd .. && npm run compile",
+        "compile": "tsc -b",
+        "watch": "tsc -b -w",
+        "postinstall": "cd server && npm install && cd ..",
+        "test": "sh ./scripts/e2e.sh"
     },
     "devDependencies": {
         "@types/mocha": "^7.0",
         "@types/node": "^13.9",
         "@types/vscode": "^1.40.0",
+        "alex": "^8.1.1",
         "eslint": "^6.8.0",
-        "glob": "^7.1.6",
-        "mocha": "^7.0",
-        "typescript": "^3.7.0",
-        "vscode-test": "^1.3.0"
+        "is-md": "^2.0.0",
+        "vfile-messages-to-vscode-diagnostics": "^1.0.0",
+        "typescript": "^3.7.0"
     },
     "dependencies": {
-        "alex-vscode": "1.0.0",
-        "vscode-languageclient": "6.1.1",
-        "vscode-languageserver": "6.1.1"
+        "vscode-languageclient": "^6.1.1"
     }
 }

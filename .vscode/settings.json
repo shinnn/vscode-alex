@@ -1,3 +1,6 @@
 {
-  "javascript.validate.syntaxValidation": false
+    "editor.insertSpaces": false,
+    "tslint.enable": true,
+    "typescript.tsc.autoDetect": "off",
+    "typescript.preferences.quoteStyle": "single"
 }
