@@ -7,7 +7,7 @@ A [Visual Studio Code](https://code.visualstudio.com/) extension to find unequal
 
 > Catch insensitive, inconsiderate writing.
 
-![screenshot](screenshot.png)
+![screenshot](media/screenshot.png)
 
 ## Installation
 
