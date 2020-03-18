@@ -20,7 +20,9 @@
         "vscode": "^1.40.0"
     },
     "activationEvents": [
-        "onLanguage:plaintext"
+        "onLanguage:plaintext",
+        "onLanguage:markdown",
+        "onLanguage:latex"
     ],
     "main": "./client/out/extension",
     "contributes": {
