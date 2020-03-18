@@ -3,11 +3,11 @@
     "version": "0.4.1",
     "displayName": "AlexJS Linter",
     "description": "Find gender favouring, race related, religion inconsiderate or other unequal phrasing",
-    "publisher": "shinnn",
+    "publisher": "tlahmann",
     "contributors": [
         {
-            "name": "tlahmann",
-            "url": "https://github.com/tlahmann/"
+            "name": "shinnn",
+            "url": "https://github.com/shinnn/"
         }
     ],
     "repository": "https://github.com/tlahmann/vscode-alex",
