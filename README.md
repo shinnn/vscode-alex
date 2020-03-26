@@ -24,9 +24,7 @@ Then this extension automatically checks plain text files.
 
 ## Future features
 
-* Add markdown support. This should in general be possible right now but the config and code must change.
-* Add LaTeX support.
-* Add list of problems to VS Code 'Problems' tab.
+* Add QuickFix feature.
 
 ## License
 
