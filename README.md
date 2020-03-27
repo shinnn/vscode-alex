@@ -22,6 +22,13 @@ Enable alex-linter in the VS Code [settings](https://code.visualstudio.com/docs/
 
 Then this extension automatically checks plain text files.
 
+### Extension Settings
+
+| Parameter             | Description                                                                            | Default |
+| --------------------- | -------------------------------------------------------------------------------------- | ------- |
+| `alexLinter.enabled`  | Enable (true) or disable (false) AlexLinter                                            | true    |
+| `alexLinter.strategy` | Run the linter on save (onSave) or on type (onType) or on user triggered action (user) | onSave  |
+
 ## Future features
 
 * Add QuickFix feature.
@@ -29,6 +36,7 @@ Then this extension automatically checks plain text files.
 ## License
 
 Copyright (c) 2015 [Shinnosuke Watanabe](https://github.com/shinnn)
+
 Copyright (c) 2020 [Tobias Lahmann](https://github.com/tlahmann)
 
 Licensed under [the MIT License](./LICENSE).
