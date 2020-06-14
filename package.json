@@ -1,6 +1,6 @@
 {
     "name": "alex-linter",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "displayName": "AlexJS Linter",
     "description": "Find gender favouring, race related, religion inconsiderate or other unequal phrasing",
     "publisher": "tlahmann",
