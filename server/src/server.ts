@@ -139,8 +139,8 @@ async function validateTextDocument(textDocument: TextDocument, saved = false): 
         diagnostics.push({
             severity: DiagnosticSeverity.Warning,
             range: m.range,
-            message: `alex-lint: ${m.message}`,
-            source: 'ex'
+            message: `${m.message}`,
+            source: 'alex-lint'
         } as Diagnostic);
     })
 
