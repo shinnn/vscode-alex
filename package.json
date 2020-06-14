@@ -1,6 +1,6 @@
 {
     "name": "alex-linter",
-    "version": "0.4.4",
+    "version": "0.4.5",
     "displayName": "AlexJS Linter",
     "description": "Find gender favouring, race related, religion inconsiderate or other unequal phrasing",
     "publisher": "tlahmann",
@@ -56,7 +56,7 @@
     "scripts": {
         "compile": "tsc -b",
         "watch": "tsc -b -w",
-        "postinstall": "cd server && npm install && cd ..",
+        "postinstall": "cd server && npm install && cd ../client && npm install && cd ..",
         "test": "sh ./scripts/e2e.sh"
     },
     "devDependencies": {
