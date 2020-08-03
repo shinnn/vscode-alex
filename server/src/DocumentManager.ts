@@ -38,7 +38,7 @@ export class DocumentManager {
 
     // Commands execution
     async executeCommand(params: any) {
-        console.log(`Request execute command ${ JSON.stringify(params) }`);
+        // console.log(`Request execute command ${ JSON.stringify(params) }`);
         if (params.command === 'alexLinter.lint') {
             const document: TextDocument = this.getDocumentFromUri(this.currentTextDocumentUri)!;
             await this.validateTextDocument(document);
@@ -110,7 +110,7 @@ export class DocumentManager {
             if (indexNextInQueue > -1) {
                 const lintToProcess = this.queuedLints[indexNextInQueue];
                 this.queuedLints.splice(indexNextInQueue, 1);
-                console.log(`Run queued lint for ${ textDocument.uri } (${ JSON.stringify(lintToProcess.options || '{}') })`);
+                // console.log(`Run queued lint for ${ textDocument.uri } (${ JSON.stringify(lintToProcess.options || '{}') })`);
                 return await this.validateTextDocument(textDocument, lintToProcess);
             }
             else {
@@ -120,7 +120,7 @@ export class DocumentManager {
         else {
             // This file is already linted: add lint in queue , it will be processed when the response will arrive
             this.queuedLints.push({ uri: textDocument.uri, options: opts });
-            console.log(`${ textDocument.uri } is already being linted: add request in queue`);
+            // console.log(`${ textDocument.uri } is already being linted: add request in queue`);
             return Promise.resolve([]);
         }
 
@@ -179,14 +179,14 @@ export class DocumentManager {
 
     // Update diagnostics on client and store them in docsDiagnostics field
     async updateDiagnostics(docUri: string, diagnostics: Diagnostic[]) {
-        console.log(`Update diagnostics for ${ docUri }: ${ diagnostics.length } diagnostics sent`);
+        // console.log(`Update diagnostics for ${ docUri }: ${ diagnostics.length } diagnostics sent`);
         await this.connection.sendDiagnostics({ uri: docUri, diagnostics: diagnostics });
         this.docsDiagnostics.set(docUri, diagnostics);
     }
 
     // Update diagnostics on client and store them in docsDiagnostics field
     async resetDiagnostics(docUri: string) {
-        console.log(`Reset diagnostics for ${ docUri }`);
+        // console.log(`Reset diagnostics for ${ docUri }`);
         const emptydiagnostics: Diagnostic[] = [];
         await this.connection.sendDiagnostics({ uri: docUri, diagnostics: emptydiagnostics });
         this.docsDiagnostics.set(docUri, emptydiagnostics);

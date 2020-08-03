@@ -47,7 +47,7 @@ export function provideQuickFixCodeActions(textDocument: TextDocument, codeActio
             }
         }
     }
-    console.log(`Provided ${ quickFixCodeActions.length } codeActions for ${ textDocument.uri }`);
+    // console.log(`Provided ${ quickFixCodeActions.length } codeActions for ${ textDocument.uri }`);
     return quickFixCodeActions;
 
 }
@@ -87,7 +87,7 @@ export async function applyQuickFixes(diagnostic: Diagnostic, textDocumentUri: s
 
     const textDocument: TextDocument = docManager.getDocumentFromUri(textDocumentUri);
     const docLinter = docManager.getDocLinter(textDocument.uri);
-    console.log(`Start fixing ${ textDocument.uri }`);
+    // console.log(`Start fixing ${ textDocument.uri }`);
     await docManager.connection.sendNotification(StatusNotification.type, {
         state: 'alexLinter.applyQuickFix',
         documents: [{ documentUri: textDocument.uri }],
@@ -96,13 +96,13 @@ export async function applyQuickFixes(diagnostic: Diagnostic, textDocumentUri: s
 
     await applyTextDocumentEditOnWorkspace(docManager, textDocument, diagnostic, edits);
     docManager.validateTextDocument(textDocument, { force: true });
-    console.log(`End fixing ${ textDocument.uri }`);
+    // console.log(`End fixing ${ textDocument.uri }`);
 }
 
 // Quick fix in the whole file
 export async function applyQuickFixesInFile(diagnostics: Diagnostic[], textDocumentUri: string, docManager: DocumentManager) {
     const textDocument: TextDocument = docManager.getDocumentFromUri(textDocumentUri);
     const fixRules = (diagnostics[0].code as string).split('-')[0];
-    console.log(`Request apply QuickFixes in file for all ${ fixRules } error in ${ textDocumentUri }`);
+    // console.log(`Request apply QuickFixes in file for all ${ fixRules } error in ${ textDocumentUri }`);
     await docManager.validateTextDocument(textDocument, { fix: true, fixrules: fixRules });
 }

@@ -58,7 +58,7 @@ export async function executeLinter(textDocument: TextDocument, docManager: Docu
     const linterTaskId = docManager.getNewTaskId();
 
     // Notify client that lint is starting
-    console.log(`Start linting ${ textDocument.uri }`);
+    // console.log(`Start linting ${ textDocument.uri }`);
     docManager.connection.sendNotification(StatusNotification.type, {
         id: linterTaskId,
         state: 'lint.start' + (opts.fix ? '.fix' : opts.format ? '.format' : ''),
@@ -90,7 +90,7 @@ export async function executeLinter(textDocument: TextDocument, docManager: Docu
     } catch (e) {
         // If error, send notification to client
         console.error('VsCode Alex Lint error: ' + e.message + '\n' + e.stack);
-        console.log(`Error linting ${ textDocument.uri }` + e.message + '\n' + e.stack);
+        // console.log(`Error linting ${ textDocument.uri }` + e.message + '\n' + e.stack);
         docManager.connection.sendNotification(StatusNotification.type, {
             id: linterTaskId,
             state: 'lint.error',
@@ -99,7 +99,7 @@ export async function executeLinter(textDocument: TextDocument, docManager: Docu
         });
         return Promise.resolve([]);
     }
-    console.info(`Completed linting ${ textDocument.uri } in ${ (performance.now() - perfStart).toFixed(0) } ms`);
+    // console.info(`Completed linting ${ textDocument.uri } in ${ (performance.now() - perfStart).toFixed(0) } ms`);
 
     // // Parse results
     const lintResults = linter.messages || {};
@@ -130,7 +130,7 @@ export function parseLinterResultsIntoDiagnostics(lintResults: any, source: stri
     // Build diagnostics
     let diagnostics: Diagnostic[] = [];
     const docQuickFixes: any = {};
-    console.log(`Parsing results of ${ textDocument.uri }`);
+    // console.log(`Parsing results of ${ textDocument.uri }`);
     // Get each error for the file
     lintResults?.forEach((r: { message: { result: string, replace: string[] }; severity: 1 | 2 | 3 | 4 | undefined, range: Range }, i: number) => {
         // Create vscode Diagnostic
