@@ -66,13 +66,13 @@
         "test": "sh ./scripts/e2e.sh"
     },
     "devDependencies": {
-        "@types/mocha": "^7.0",
+        "@types/mocha": "^8.0.1",
         "@types/node": "^14.0",
-        "@types/vscode": "^1.45",
+        "@types/vscode": "^1.47",
         "alex": "^8.2.0",
         "eslint": "^7.0.0",
         "is-md": "^2.0.0",
-        "typescript": "^3.7.0"
+        "typescript": "^3.9"
     },
     "dependencies": {
         "vscode-languageclient": "^6.1.3"
