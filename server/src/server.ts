@@ -1,6 +1,5 @@
 import {
     createConnection,
-    Diagnostic,
     ProposedFeatures,
     InitializeParams,
     DidChangeConfigurationNotification,
@@ -13,7 +12,7 @@ import {
     NotificationType,
     DocumentFormattingParams,
     TextDocumentChangeEvent,
-    } from 'vscode-languageserver';
+} from 'vscode-languageserver';
 // import { TextDocument as TD } from 'vscode-languageserver-textdocument';
 import { TextDocument, TextEdit } from 'vscode-languageserver-textdocument';
 
@@ -21,6 +20,7 @@ import { commands } from './linter';
 import { provideQuickFixCodeActions } from './codeActions';
 
 import { DocumentManager } from './DocumentManager';
+const { performance } = require('perf_hooks');
 
 // Active Document notifications to language server
 interface ActiveDocumentNotificationParams {
@@ -38,7 +38,7 @@ let connection = createConnection(ProposedFeatures.all);
 const docManager = new DocumentManager(connection);
 
 let lastChangeConfigEventReceived: number;
-const delayBeforeLintAgainAfterConfigUpdate = 10000;
+const delayBeforeLintAgainAfterConfigUpdate = 3_000;
 
 // Create a simple text document manager. The text document manager
 // supports full document sync only
@@ -50,7 +50,6 @@ const delayBeforeLintAgainAfterConfigUpdate = 10000;
 // let hasCodeActionLiteralsCapability: boolean = false;
 
 connection.onInitialize((params: InitializeParams) => {
-    console.log('alex-linter: initialize')
     return {
         capabilities: {
             textDocumentSync: {
@@ -85,7 +84,6 @@ connection.onInitialized(async () => {
         // If error, send notification to client
         return Promise.reject(new Error('VsCode Alex Linter "DidSaveTextDocumentNotification" registration error: ' + e.message + '\n' + e.stack));
     }
-    console.log('alex-linter: initialized server');
 });
 
 
@@ -94,12 +92,16 @@ connection.onInitialized(async () => {
 connection.onDidChangeConfiguration(async (change) => {
     lastChangeConfigEventReceived = performance.now();
     setTimeout(async () => {
-        if ((lastChangeConfigEventReceived - performance.now()) > delayBeforeLintAgainAfterConfigUpdate) {
-            console.log(`change configuration event received: lint again all open documents`);
+        if ((performance.now() - lastChangeConfigEventReceived) > delayBeforeLintAgainAfterConfigUpdate) {
             // Reset all cached document settings
             docManager.removeDocumentSettings('all');
             // Revalidate all open text documents
             for (const doc of docManager.documents.all()) {
+                const settings = await docManager.getDocumentSettings(doc.uri);
+                if (!settings?.enabled) {
+                    await resetDiagnostics(doc.uri);
+                    continue;
+                }
                 await docManager.validateTextDocument(doc);
             };
         }
@@ -115,7 +117,8 @@ connection.onExecuteCommand(async (params: ExecuteCommandParams) => {
 // Handle formatting request from client
 connection.onDocumentFormatting(async (params: DocumentFormattingParams): Promise<TextEdit[]> => {
     const { textDocument } = params;
-    console.log(`Formatting request received from client for ${ textDocument.uri }`);
+    const settings = await docManager.getDocumentSettings(textDocument.uri);
+    if (!settings?.enabled) { return Promise.reject(); }
     const document = docManager.getDocumentFromUri(textDocument.uri);
     const textEdits: TextEdit[] = await docManager.formatTextDocument(document);
     // If document has been updated, lint again the sources
@@ -137,7 +140,6 @@ connection.onCodeAction(async (codeActionParams: CodeActionParams): Promise<Code
     if (document == null) {
         return [];
     }
-    console.log(`Code action request received from client for ${ document.uri }`);
     const docQuickFixes: any = docManager.getDocQuickFixes(codeActionParams.textDocument.uri);
     if (docQuickFixes && Object.keys(docQuickFixes).length > 0) {
         return provideQuickFixCodeActions(document, codeActionParams, docQuickFixes);
@@ -147,43 +149,45 @@ connection.onCodeAction(async (codeActionParams: CodeActionParams): Promise<Code
 
 // Notification from client that active window has changed
 connection.onNotification(ActiveDocumentNotification.type, (params) => {
-    console.log(`Active text editor has changed to ${ params.uri }`);
     docManager.setCurrentDocumentUri(params.uri);
 });
 
 // Lint text document on open
 docManager.documents.onDidOpen(async (event) => {
-    console.log(`File open event received for ${ event.document.uri }`);
     const textDocument: TextDocument = docManager.getDocumentFromUri(event.document.uri, true);
+    const settings = await docManager.getDocumentSettings(textDocument.uri);
+    if (!settings?.enabled) { return; }
     await docManager.validateTextDocument(textDocument);
 });
 
 // The content of a text document has changed. This event is emitted
 // when the text document first opened or when its content has changed.
 docManager.documents.onDidChangeContent(async (change: TextDocumentChangeEvent<TextDocument>) => {
-    docManager.setCurrentDocumentUri(change.document.uri);
     const settings = await docManager.getDocumentSettings(change.document.uri);
-    if (settings.strategy === 'onType') {
+    if (!settings?.enabled) { return; }
+    docManager.setCurrentDocumentUri(change.document.uri);
+    if (settings?.strategy === 'onType') {
         await docManager.validateTextDocument(change.document);
     }
 });
 
 // Lint on save if it has been configured
 docManager.documents.onDidSave(async event => {
-    console.log(`save event received for ${ event.document.uri }`);
     const textDocument: TextDocument = docManager.getDocumentFromUri(event.document.uri, true);
     const settings = await docManager.getDocumentSettings(textDocument.uri);
+    if (!settings?.enabled) { return; }
     if (settings.strategy === 'onSave') {
         await docManager.validateTextDocument(textDocument);
     }
 });
 
 // Only keep settings for open documents
-docManager.documents.onDidClose(async event => {
-    console.log(`close event received for ${ event.document.uri }`);
-    await docManager.resetDiagnostics(event.document.uri);
-    docManager.removeDocumentSettings(event.document.uri);
-});
+docManager.documents.onDidClose(async event => { await resetDiagnostics(event.document.uri); });
+
+async function resetDiagnostics(documentUri: string) {
+    await docManager.resetDiagnostics(documentUri);
+    docManager.removeDocumentSettings(documentUri);
+}
 
 // Make the text document manager listen on the connection
 // for open, change and close text document events

@@ -35,7 +35,7 @@
             "properties": {
                 "alexLinter.enabled": {
                     "type": "boolean",
-                    "default": false,
+                    "default": true,
                     "description": "Control whether AlexJS Linter automatically check files or not."
                 },
                 "alexLinter.strategy": {
@@ -43,18 +43,12 @@
                     "default": "onType",
                     "enum": [
                         "onType",
-                        "onSave",
-                        "user"
+                        "onSave"
                     ],
                     "enumDescriptions": [
                         "Check the document while typing",
                         "Check the document when saving"
                     ]
-                },
-                "alexLinter.maxNumberOfProblems": {
-                    "type": "number",
-                    "default": 100,
-                    "description": "Controls the maximum number of problems produced by the server."
                 }
             }
         }
