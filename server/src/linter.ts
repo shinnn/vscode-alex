@@ -1,5 +1,4 @@
-/* eslint-disable eqeqeq */
-import { Command, Diagnostic, DiagnosticSeverity, ShowMessageRequestParams, MessageType, NotificationType } from 'vscode-languageserver';
+import { Command, Diagnostic, NotificationType } from 'vscode-languageserver';
 import { TextDocument, TextEdit } from 'vscode-languageserver-textdocument';
 import * as path from 'path';
 
