@@ -36,7 +36,9 @@ If you encounter any issues, feel free to open a ticket on [github](https://gith
 
 * Enable further settings
   * Strategy: 'user' - only trigger on user initiation
-* Quick-Fix extension: enable a 'change all occurrences' and 'change in all files' feature
+* Quick-Fix extension 
+  * implement a 'change all occurrences' and 'change in all files' feature
+  * Include an 'ignore this'/'ignore all' functionality
 
 ## License
 
