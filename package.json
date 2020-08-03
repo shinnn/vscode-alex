@@ -33,22 +33,28 @@
             "type": "object",
             "title": "AlexJS Linter",
             "properties": {
-                "alexLinter.check.enabled": {
+                "alexLinter.enabled": {
                     "type": "boolean",
                     "default": false,
                     "description": "Control whether AlexJS Linter automatically check files or not."
                 },
-                "alexLinter.check.strategy": {
+                "alexLinter.strategy": {
                     "type": "string",
                     "default": "onType",
                     "enum": [
                         "onType",
-                        "onSave"
+                        "onSave",
+                        "user"
                     ],
                     "enumDescriptions": [
                         "Check the document while typing",
                         "Check the document when saving"
                     ]
+                },
+                "alexLinter.maxNumberOfProblems": {
+                    "type": "number",
+                    "default": 100,
+                    "description": "Controls the maximum number of problems produced by the server."
                 }
             }
         }
@@ -63,7 +69,7 @@
         "@types/mocha": "^7.0",
         "@types/node": "^14.0",
         "@types/vscode": "^1.45",
-        "alex": "^8.1.1",
+        "alex": "^8.2.0",
         "eslint": "^7.0.0",
         "is-md": "^2.0.0",
         "typescript": "^3.7.0"

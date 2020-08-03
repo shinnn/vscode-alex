@@ -11,8 +11,8 @@ A [Visual Studio Code](https://code.visualstudio.com/) extension to find unequal
 
 ## Installation
 
-1. Run [`Install Extension`](https://code.visualstudio.com/docs/editor/extension-gallery#_install-an-extension) command from [Command Palette](https://code.visualstudio.com/Docs/editor/codebasics#_command-palette).
-2. Search and choose [`AlexJs Linter`](https://marketplace.visualstudio.com/items?itemName=TLahmann.alex-linter).
+* Run [`Install Extension`](https://code.visualstudio.com/docs/editor/extension-gallery#_install-an-extension) command from [Command Palette](https://code.visualstudio.com/Docs/editor/codebasics#_command-palette).
+* Search and choose [`AlexJs Linter`](https://marketplace.visualstudio.com/items?itemName=TLahmann.alex-linter).
 
 See the [extension installation guide](https://code.visualstudio.com/docs/editor/extension-gallery) for details.
 
