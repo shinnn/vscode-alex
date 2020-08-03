@@ -18,9 +18,12 @@ See the [extension installation guide](https://code.visualstudio.com/docs/editor
 
 ## Usage
 
-Enable alex-linter in the VS Code [settings](https://code.visualstudio.com/docs/getstarted/settings).
+The extension should be enabled by default, you can verify this in the VS Code [settings](https://code.visualstudio.com/docs/getstarted/settings).
 
-Then this extension automatically checks plain text files.
+It automatically checks plain text, markdown, tex or other text based files.
+The extension offers quick-fixes to easily replace words with suggestions from `alex`.
+
+If you encounter any issues, feel free to open a ticket on [github](https://github.com/tlahmann/vscode-alex/issues).
 
 ### Extension Settings
 
@@ -31,7 +34,9 @@ Then this extension automatically checks plain text files.
 
 ## Future features
 
-* Add QuickFix feature.
+* Enable further settings
+  * Strategy: 'user' - only trigger on user initiation
+* Quick-Fix extension: enable a 'change all occurrences' and 'change in all files' feature
 
 ## License
 
