@@ -9,8 +9,6 @@ import {
 import { DocumentManager } from './DocumentManager';
 import { applyTextDocumentEditOnWorkspace } from './clientUtils';
 
-const lintAgainAfterQuickFix: boolean = true; // Lint after fix is performed by npm-groovy-lint fixer
-
 // Status notifications
 interface StatusParams {
     state: string;

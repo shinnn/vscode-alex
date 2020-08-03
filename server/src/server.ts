@@ -13,8 +13,7 @@ import {
     NotificationType,
     DocumentFormattingParams,
     TextDocumentChangeEvent,
-    InitializeResult
-} from 'vscode-languageserver';
+    } from 'vscode-languageserver';
 // import { TextDocument as TD } from 'vscode-languageserver-textdocument';
 import { TextDocument, TextEdit } from 'vscode-languageserver-textdocument';
 
@@ -22,10 +21,6 @@ import { commands } from './linter';
 import { provideQuickFixCodeActions } from './codeActions';
 
 import { DocumentManager } from './DocumentManager';
-// const debug = require("debug")("vscode-groovy-lint");
-
-// import { Position } from 'vscode';
-// import { isNullOrUndefined } from 'util';
 
 // Active Document notifications to language server
 interface ActiveDocumentNotificationParams {
@@ -156,7 +151,7 @@ connection.onNotification(ActiveDocumentNotification.type, (params) => {
     docManager.setCurrentDocumentUri(params.uri);
 });
 
-// Lint groovy doc on open
+// Lint text document on open
 docManager.documents.onDidOpen(async (event) => {
     console.log(`File open event received for ${ event.document.uri }`);
     const textDocument: TextDocument = docManager.getDocumentFromUri(event.document.uri, true);

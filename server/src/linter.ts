@@ -31,7 +31,7 @@ export const commands = [
     COMMAND_LINT_QUICKFIX
 ];
 
-// Validate a groovy file
+// Validate a file
 export async function executeLinter(textDocument: TextDocument, docManager: DocumentManager, opts: any = { fix: false, format: false }): Promise<TextEdit[]> {
     const perfStart = performance.now();
 
@@ -67,21 +67,21 @@ export async function executeLinter(textDocument: TextDocument, docManager: Docu
     });
 
     // Build NmpalexLinter config
-    const npmalexLinterConfig: any = {
+    const npmAlexLinterConfig: any = {
         output: 'none',
     };
     // Add format param if necessary
     if (opts.format) {
-        npmalexLinterConfig.format = true;
+        npmAlexLinterConfig.format = true;
     }
     // Add fix param if necessary
     if (opts.fix) {
-        npmalexLinterConfig.fix = true;
+        npmAlexLinterConfig.fix = true;
     }
 
     const linter = new AlexVSCode();
 
-    // Run npm-groovy-lint linter/fixer
+    // Run alexVSCode linter
     try {
         await linter.run(textDocument);
         if (!opts.format) {
@@ -89,7 +89,7 @@ export async function executeLinter(textDocument: TextDocument, docManager: Docu
         }
     } catch (e) {
         // If error, send notification to client
-        console.error('VsCode Groovy Lint error: ' + e.message + '\n' + e.stack);
+        console.error('VsCode Alex Lint error: ' + e.message + '\n' + e.stack);
         console.log(`Error linting ${ textDocument.uri }` + e.message + '\n' + e.stack);
         docManager.connection.sendNotification(StatusNotification.type, {
             id: linterTaskId,
@@ -99,7 +99,7 @@ export async function executeLinter(textDocument: TextDocument, docManager: Docu
         });
         return Promise.resolve([]);
     }
-    console.info(`Completed linting ${ textDocument.uri } in ${ (performance.now() - perfStart).toFixed(0) }`);
+    console.info(`Completed linting ${ textDocument.uri } in ${ (performance.now() - perfStart).toFixed(0) } ms`);
 
     // // Parse results
     const lintResults = linter.messages || {};
