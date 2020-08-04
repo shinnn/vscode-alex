@@ -27,10 +27,10 @@ If you encounter any issues, feel free to open a ticket on [github](https://gith
 
 ### Extension Settings
 
-| Parameter             | Description                                                                            | Default |
-| --------------------- | -------------------------------------------------------------------------------------- | ------- |
-| `alexLinter.enabled`  | Enable (true) or disable (false) AlexLinter                                            | true    |
-| `alexLinter.strategy` | Run the linter on save (onSave) or on type (onType) or on user triggered action (user) | onSave  |
+| Parameter             | Description                                         | Default |
+| --------------------- | --------------------------------------------------- | ------- |
+| `alexLinter.enabled`  | Enable (true) or disable (false) AlexLinter         | true    |
+| `alexLinter.strategy` | Run the linter on save (onSave) or on type (onType) | onSave  |
 
 ## Future features
 
