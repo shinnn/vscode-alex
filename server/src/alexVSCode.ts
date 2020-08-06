@@ -5,6 +5,7 @@
 'use strict';
 
 import { TextDocument } from "vscode-languageserver";
+import { VsCodeAlexLinterSettings } from './DocumentManager';
 const alex = require('alex');
 const isMdPath = require('is-md');
 
@@ -12,6 +13,14 @@ export class AlexVSCode {
     private _text: string = '';
     get text() { return this._text; }
     messages: any;
+
+    private _settings: VsCodeAlexLinterSettings;
+    get settings(): VsCodeAlexLinterSettings { return this._settings; }
+
+    constructor (currentSettings: VsCodeAlexLinterSettings) {
+        this._settings = currentSettings;
+    }
+
     isTextDocument(textDocument: TextDocument) {
         if (
             textDocument !== null &&
@@ -41,7 +50,7 @@ export class AlexVSCode {
         }
 
         this._text = textDocument.getText();
-        let messages = (this.isMarkdown(textDocument) ? alex : alex.text)(textDocument.getText()).messages;
+        let messages = (this.isMarkdown(textDocument) ? alex : alex.text)(textDocument.getText(), { allow: ["boogeyman-boogeywoman"], noBinary: this._settings.binary }).messages;
         messages = messages.map((message: any) => ({
             message: this.parseMessage(message.reason),
             // https://github.com/Microsoft/vscode-languageserver-node/blob/v2.6.2/types/src/main.ts#L130-L147
@@ -63,9 +72,9 @@ export class AlexVSCode {
     };
 
     private parseMessage(message: string): { result: string, replace: string[] } {
-        const results = message.split(', use');
-        const replace = this.getOdd(results[1].split('`'));
-        return { result: results[0], replace }
+        const results = message?.split(', use');
+        const replace = this.getOdd(results?.[1]?.split('`'));
+        return { result: results?.[0], replace }
     }
 
     /**
@@ -74,7 +83,7 @@ export class AlexVSCode {
     */
     private getOdd(candid: string[]): string[] {
         var oddOnes: string[] = [];
-        for (var i = 0; i < candid.length; i++) {
+        for (var i = 0; i < candid?.length; i++) {
             (i % 2 == 0 ? [] : oddOnes).push(candid[i]);
         }
         return oddOnes;

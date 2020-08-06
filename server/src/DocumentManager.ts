@@ -7,6 +7,7 @@ import { applyQuickFixes, applyQuickFixesInFile } from './codeActions';
 export interface VsCodeAlexLinterSettings {
     enabled: boolean;
     strategy: string;
+    binary: boolean;
     maxNumberOfProblems: number;
 }
 

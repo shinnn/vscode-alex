@@ -79,7 +79,7 @@ export async function executeLinter(textDocument: TextDocument, docManager: Docu
         npmAlexLinterConfig.fix = true;
     }
 
-    const linter = new AlexVSCode();
+    const linter = new AlexVSCode(settings);
 
     // Run alexVSCode linter
     try {
