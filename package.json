@@ -26,7 +26,7 @@
         "onLanguage:plaintext",
         "onLanguage:markdown",
         "onLanguage:latex",
-        "onCommand:extension.check"
+        "onCommand:alexLinter.lint"
     ],
     "main": "./client/out/extension",
     "contributes": {
@@ -73,7 +73,7 @@
         },
         "commands": [
             {
-                "command": "extension.check",
+                "command": "alexLinter.lint",
                 "title": "AlexLiner: Check for insensitive, inconsiderate writing"
             }
         ]

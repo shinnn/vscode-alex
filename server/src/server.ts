@@ -13,7 +13,6 @@ import {
     DocumentFormattingParams,
     TextDocumentChangeEvent,
 } from 'vscode-languageserver';
-// import { TextDocument as TD } from 'vscode-languageserver-textdocument';
 import { TextDocument, TextEdit } from 'vscode-languageserver-textdocument';
 
 import { commands } from './linter';
@@ -166,7 +165,11 @@ docManager.documents.onDidChangeContent(async (change: TextDocumentChangeEvent<T
 docManager.documents.onDidSave(async event => {
     const textDocument: TextDocument = docManager.getDocumentFromUri(event.document.uri, true);
     const settings = await docManager.getDocumentSettings(textDocument.uri);
-    if (settings?.strategy === 'user') { return; }
+    if (settings?.strategy === 'user') {
+        // TODO: Should the diagnostics be resetted when document is saved?
+        // await resetDiagnostics(textDocument.uri);
+        return;
+    }
     if (settings.strategy === 'onSave') {
         await docManager.validateTextDocument(textDocument);
     }

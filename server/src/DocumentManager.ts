@@ -38,7 +38,6 @@ export class DocumentManager {
 
     // Commands execution
     async executeCommand(params: any) {
-        // console.log(`Request execute command ${ JSON.stringify(params) }`);
         if (params.command === 'alexLinter.lint') {
             const document: TextDocument = this.getDocumentFromUri(this.currentTextDocumentUri)!;
             await this.validateTextDocument(document);
