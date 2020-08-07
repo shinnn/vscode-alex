@@ -57,16 +57,16 @@
                 "alexLinter.alex.profanitySureness": {
                     "type": "string",
                     "default": "maybe",
-                    "description": "The profanitySureness field is the minimum rating (including) that you want to check for. If you set it to 1 (maybe) then it will warn for level 1 and 2 (likely) profanities, but not for level 0 (unlikely).",
+                    "description": "The profanity sureness is a minimum rating for alex to check for. If set to 'maybe' then alex will warn for the levels 'maybe' and 'likely' profanities, but not for 'unlikely' profanity.",
                     "enum": [
                         "likely",
                         "maybe",
                         "unlikely"
                     ],
                     "enumDescriptions": [
-                        "Words that are likely profanity and seldom used in text",
-                        "Words that are maybe profanity and somewhat used in text",
-                        "Words that are unlikely profanity and often used in text"
+                        "Words that are likely profanity are marked as waring",
+                        "Words that are possibly profanity are marked as waring",
+                        "Words that are unlikely profanity are marked as waring"
                     ]
                 }
             }
