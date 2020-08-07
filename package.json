@@ -25,7 +25,8 @@
     "activationEvents": [
         "onLanguage:plaintext",
         "onLanguage:markdown",
-        "onLanguage:latex"
+        "onLanguage:latex",
+        "onCommand:extension.check"
     ],
     "main": "./client/out/extension",
     "contributes": {
@@ -33,30 +34,49 @@
             "type": "object",
             "title": "AlexJS Linter",
             "properties": {
-                "alexLinter.enabled": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Control whether AlexJS Linter automatically check files or not."
-                },
                 "alexLinter.strategy": {
                     "type": "string",
                     "default": "onType",
+                    "description": "Sets when the Alex linter checks for inconsiderate writing",
                     "enum": [
                         "onType",
-                        "onSave"
+                        "onSave",
+                        "user"
                     ],
                     "enumDescriptions": [
                         "Check the document while typing",
-                        "Check the document when saving"
+                        "Check the document when saving",
+                        "Check the document on user initiation"
                     ]
                 },
-                "alexLinter.binary": {
+                "alexLinter.alex.noBinary": {
                     "type": "boolean",
-                    "default": true,
-                    "description": "Control whether AlexJS Linter warns for pairs like he and she and garbageman or garbagewoman."
+                    "default": false,
+                    "description": "Control whether AlexJS Linter warns for pairs like 'he or she'."
+                },
+                "alexLinter.alex.profanitySureness": {
+                    "type": "string",
+                    "default": "maybe",
+                    "description": "The profanitySureness field is the minimum rating (including) that you want to check for. If you set it to 1 (maybe) then it will warn for level 1 and 2 (likely) profanities, but not for level 0 (unlikely).",
+                    "enum": [
+                        "likely",
+                        "maybe",
+                        "unlikely"
+                    ],
+                    "enumDescriptions": [
+                        "Words that are likely profanity and seldom used in text",
+                        "Words that are maybe profanity and somewhat used in text",
+                        "Words that are unlikely profanity and often used in text"
+                    ]
                 }
             }
-        }
+        },
+        "commands": [
+            {
+                "command": "extension.check",
+                "title": "AlexLiner: Check for insensitive, inconsiderate writing"
+            }
+        ]
     },
     "scripts": {
         "compile": "tsc -b",

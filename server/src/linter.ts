@@ -35,13 +35,6 @@ export const commands = [
 export async function executeLinter(textDocument: TextDocument, docManager: DocumentManager, opts: any = { fix: false, format: false }): Promise<TextEdit[]> {
     const perfStart = performance.now();
 
-    // Get settings and stop if action not enabled
-    let settings = await docManager.getDocumentSettings(textDocument.uri);
-    // Linter disabled
-    if (settings.enabled === false) {
-        return Promise.resolve([]);
-    }
-
     // In case lint was queues, get most recent version of textDocument
     textDocument = docManager.getUpToDateTextDocument(textDocument);
 
@@ -66,20 +59,9 @@ export async function executeLinter(textDocument: TextDocument, docManager: Docu
         lastFileName: fileNm
     });
 
-    // Build NmpalexLinter config
-    const npmAlexLinterConfig: any = {
-        output: 'none',
-    };
-    // Add format param if necessary
-    if (opts.format) {
-        npmAlexLinterConfig.format = true;
-    }
-    // Add fix param if necessary
-    if (opts.fix) {
-        npmAlexLinterConfig.fix = true;
-    }
-
-    const linter = new AlexVSCode(settings);
+    // Get settings and stop if action not enabled
+    let settings = await docManager.getDocumentSettings(textDocument.uri);
+    const linter = new AlexVSCode(settings.alex);
 
     // Run alexVSCode linter
     try {

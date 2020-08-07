@@ -58,6 +58,14 @@ export function activate(context: ExtensionContext) {
         serverOptions,
         clientOptions
     );
+
+    const command = 'extension.check';
+    const disposable = vscode.commands.registerCommand(command, (name: string = 'world') => {
+        // Display a message box to the user
+        vscode.window.showInformationMessage('Hello World!');
+    });
+    context.subscriptions.push(disposable);
+
     // Start the client. This will also launch the server
     context.subscriptions.push(
         client.start(),

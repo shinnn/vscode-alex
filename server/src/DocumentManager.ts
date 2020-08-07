@@ -1,14 +1,13 @@
-import { TextDocuments, Diagnostic, TextDocumentIdentifier } from 'vscode-languageserver';
+import { TextDocuments, Diagnostic } from 'vscode-languageserver';
 import { TextDocument, DocumentUri, TextEdit } from 'vscode-languageserver-textdocument';
 import { executeLinter } from './linter';
-import { applyQuickFixes, applyQuickFixesInFile } from './codeActions';
+import { applyQuickFixes } from './codeActions';
+import { AlexSettings } from './alexVSCode';
 
 // Usable settings
 export interface VsCodeAlexLinterSettings {
-    enabled: boolean;
     strategy: string;
-    binary: boolean;
-    maxNumberOfProblems: number;
+    alex: AlexSettings;
 }
 
 // Documents manager

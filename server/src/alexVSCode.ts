@@ -5,19 +5,25 @@
 'use strict';
 
 import { TextDocument } from "vscode-languageserver";
-import { VsCodeAlexLinterSettings } from './DocumentManager';
 const alex = require('alex');
 const isMdPath = require('is-md');
+
+export interface AlexSettings {
+    noBinary: boolean;
+    sureness: boolean;
+    allow: string[];
+    deny: string[];
+} 
 
 export class AlexVSCode {
     private _text: string = '';
     get text() { return this._text; }
     messages: any;
 
-    private _settings: VsCodeAlexLinterSettings;
-    get settings(): VsCodeAlexLinterSettings { return this._settings; }
+    private _settings: AlexSettings;
+    get settings(): AlexSettings { return this._settings; }
 
-    constructor (currentSettings: VsCodeAlexLinterSettings) {
+    constructor (currentSettings: AlexSettings) {
         this._settings = currentSettings;
     }
 
@@ -50,7 +56,7 @@ export class AlexVSCode {
         }
 
         this._text = textDocument.getText();
-        let messages = (this.isMarkdown(textDocument) ? alex : alex.text)(textDocument.getText(), { allow: ["boogeyman-boogeywoman"], noBinary: this._settings.binary }).messages;
+        let messages = (this.isMarkdown(textDocument) ? alex : alex.text)(textDocument.getText(), this._settings).messages;
         messages = messages.map((message: any) => ({
             message: this.parseMessage(message.reason),
             // https://github.com/Microsoft/vscode-languageserver-node/blob/v2.6.2/types/src/main.ts#L130-L147
