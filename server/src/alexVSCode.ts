@@ -10,10 +10,10 @@ const isMdPath = require('is-md');
 
 export interface AlexSettings {
     noBinary: boolean;
-    sureness: boolean;
+    profanitySureness: number;
     allow: string[];
     deny: string[];
-} 
+}
 
 export class AlexVSCode {
     private _text: string = '';
@@ -24,7 +24,11 @@ export class AlexVSCode {
     get settings(): AlexSettings { return this._settings; }
 
     constructor (currentSettings: AlexSettings) {
-        this._settings = currentSettings;
+        const prof = currentSettings.profanitySureness as unknown as string;
+        this._settings = {
+            ...currentSettings,
+            profanitySureness: ['unlikely', 'maybe', 'likely'].indexOf(prof)
+        };
     }
 
     isTextDocument(textDocument: TextDocument) {
