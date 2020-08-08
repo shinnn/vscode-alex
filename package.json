@@ -36,11 +36,11 @@
             "properties": {
                 "alexLinter.strategy": {
                     "type": "string",
-                    "default": "onType",
+                    "default": "onSave",
                     "description": "Sets when the Alex linter checks for inconsiderate writing",
                     "enum": [
-                        "onType",
                         "onSave",
+                        "onType",
                         "user"
                     ],
                     "enumDescriptions": [
