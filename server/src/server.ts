@@ -37,7 +37,7 @@ let connection = createConnection(ProposedFeatures.all);
 const docManager = new DocumentManager(connection);
 
 let lastChangeConfigEventReceived: number;
-const delayBeforeLintAgainAfterConfigUpdate = 3_000;
+const delayBeforeLintAgainAfterConfigUpdate = 1_500;
 
 connection.onInitialize((params: InitializeParams) => {
     return {
