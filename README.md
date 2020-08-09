@@ -27,18 +27,18 @@ If you encounter any issues, feel free to open a ticket on [github](https://gith
 
 ### Extension Settings
 
-| Parameter             | Description                                         | Default |
-| --------------------- | --------------------------------------------------- | ------- |
-| `alexLinter.enabled`  | Enable (true) or disable (false) AlexLinter         | true    |
-| `alexLinter.strategy` | Run the linter on save (onSave) or on type (onType) | onSave  |
+| Parameter                      | Description                                                                           | Default |
+| ------------------------------ | ------------------------------------------------------------------------------------- | ------- |
+| `alexLinter.strategy`          | Run the linter on save (onSave), on type (onType) or on user initiation (user)        | onSave  |
+| `alexLinter.noBinary`          | Check if pairs like 'he or she' or 'garbageman or garbagewoman' are considered errors | false   |
+| `alexLinter.profanitySureness` | Set the level of profanity check. Possible values are 'likely', 'maybe' and 'unlikely'. If set to 'maybe' words like 'addict' and 'asshat' are considered profanity. If set to 'likely' the word 'addict is not marked with a warning. | maybe   |
 
 ## Future features
 
-* Enable further settings
-  * Strategy: 'user' - only trigger on user initiation
 * Quick-Fix extension 
-  * implement a 'change all occurrences' and 'change in all files' feature
-  * Include an 'ignore this'/'ignore all' functionality
+  * Implement a 'change all occurrences' and 'change in all files' feature
+  * Implement an 'ignore this'/'ignore all' functionality
+* Extend the filetypes to check
 
 ## License
 
