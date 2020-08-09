@@ -34,7 +34,7 @@
             "type": "object",
             "title": "AlexJS Linter",
             "properties": {
-                "alexLinter.strategy": {
+                "strategy": {
                     "type": "string",
                     "default": "onSave",
                     "description": "Sets when the Alex linter checks for inconsiderate writing",
@@ -49,12 +49,12 @@
                         "Check the document on user initiation"
                     ]
                 },
-                "alexLinter.alex.noBinary": {
+                "noBinary": {
                     "type": "boolean",
                     "default": false,
                     "description": "Control whether AlexJS Linter warns for pairs like 'he or she'."
                 },
-                "alexLinter.alex.profanitySureness": {
+                "profanitySureness": {
                     "type": "string",
                     "default": "maybe",
                     "description": "The profanity sureness is a minimum rating for alex to check for. If set to 'maybe' then alex will warn for the levels 'maybe' and 'likely' profanities, but not for 'unlikely' profanity.",

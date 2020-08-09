@@ -3,7 +3,7 @@ import { TextDocument, TextEdit } from 'vscode-languageserver-textdocument';
 import * as path from 'path';
 
 import { DocumentManager } from './DocumentManager';
-import { AlexVSCode } from './alexVSCode';
+import { AlexVSCode, AlexSettings } from './alexVSCode';
 import { Range } from 'vscode';
 const { performance } = require('perf_hooks');
 
@@ -61,7 +61,7 @@ export async function executeLinter(textDocument: TextDocument, docManager: Docu
 
     // Get settings and stop if action not enabled
     let settings = await docManager.getDocumentSettings(textDocument.uri);
-    const linter = new AlexVSCode(settings.alex);
+    const linter = new AlexVSCode(settings as AlexSettings);
 
     // Run alexVSCode linter
     try {

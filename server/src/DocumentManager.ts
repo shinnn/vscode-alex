@@ -5,9 +5,8 @@ import { applyQuickFixes } from './codeActions';
 import { AlexSettings } from './alexVSCode';
 
 // Usable settings
-export interface VsCodeAlexLinterSettings {
+export interface VsCodeAlexLinterSettings extends AlexSettings{
     strategy: string;
-    alex: AlexSettings;
 }
 
 // Documents manager
